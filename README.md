@@ -10,6 +10,8 @@ For example, passing a block size of 10 will create a new image
 where the color of pixels in 10x10 blocks is averaged,
 creating a pixelating effect.
 
+Works with jpeg, gif, and png.
+
 ## Building
 
 `go build .`
@@ -20,4 +22,5 @@ creating a pixelating effect.
 
 ## Limitations
 
-Currently only supports jpeg image format.
+Animated gifs will only have the first frame pixelated
+and the rest of the frames removed.

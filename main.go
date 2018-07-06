@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"image"
 	"image/color"
+	"image/gif"
 	"image/jpeg"
+	"image/png"
+	"io"
 	"os"
 	"path"
 	"strconv"
@@ -49,7 +52,7 @@ func main() {
 	}
 	defer outf.Close()
 
-	img, err := jpeg.Decode(f)
+	img, imagetype, err := image.Decode(f)
 	if err != nil {
 		fmt.Printf("unable to decode image: %v\n", err)
 		os.Exit(1)
@@ -85,7 +88,7 @@ func main() {
 		}
 	}
 
-	if err = jpeg.Encode(outf, destination, nil); err != nil {
+	if err = encode(outf, destination, imagetype); err != nil {
 		fmt.Printf("failed to encode result: %v\n", err)
 		os.Exit(1)
 	}
@@ -103,4 +106,16 @@ func makeOutputFilename(filename string) string {
 	}
 	dir := path.Dir(filename)
 	return path.Join(dir, outfile)
+}
+
+func encode(w io.Writer, i image.Image, imagetype string) error {
+	switch imagetype {
+	case "jpg":
+		return jpeg.Encode(w, i, nil)
+	case "png":
+		return png.Encode(w, i)
+	case "gif":
+		return gif.Encode(w, i, nil)
+	}
+	return fmt.Errorf("unknown image type %s", imagetype)
 }
