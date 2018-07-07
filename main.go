@@ -110,7 +110,7 @@ func makeOutputFilename(filename string) string {
 
 func encode(w io.Writer, i image.Image, imagetype string) error {
 	switch imagetype {
-	case "jpg":
+	case "jpg", "jpeg":
 		return jpeg.Encode(w, i, nil)
 	case "png":
 		return png.Encode(w, i)
