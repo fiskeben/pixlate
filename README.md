@@ -1,7 +1,7 @@
 # Pixlate
 
 Pixelates photos.
-Written in Go.
+Written in Go using only the standard library.
 
 The program will take an image file and a block size as input
 and write a new image file where blocks of pixels are averaged.
@@ -24,3 +24,4 @@ Works with jpeg, gif, and png.
 
 Animated gifs will only have the first frame pixelated
 and the rest of the frames removed.
+
